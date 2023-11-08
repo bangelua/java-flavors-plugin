@@ -28,12 +28,12 @@ dependencies {
 	jacocoRuntime "org.jacoco:org.jacoco.agent:${jacoco.toolVersion}:runtime"
 }
 
-jacocoTestReport {
-	reports {
-		xml.enabled = true
-		html.enabled = true
-	}
-}
+//jacocoTestReport {
+//	reports {
+//		xml.enabled = true
+//		html.enabled = true
+//	}
+//}
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_1_8
@@ -84,6 +84,10 @@ gradlePlugin {
 tasks.publish.dependsOn(build)
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = 'sources'
+	archiveClassifier = 'sources'
 	from sourceSets.main.allSource
+}
+
+tasks.processResources {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

@@ -63,7 +63,8 @@ class JavaFlavoursExtension {
 			testSourceSet.java.srcDir { -> testJavaPathResolver.getPath(flavour) }
 			testSourceSet.resources.srcDir { -> testResourcesPathResolver.getPath(flavour) }
 
-			['implementation', 'compile', 'compileOnly', 'compileClasspath', 'runtime'].each { String suffix ->
+//			['implementation', 'compile', 'compileOnly', 'compileClasspath', 'runtime'].each { String suffix ->
+			['implementation', 'compileOnly', 'compileClasspath'].each { String suffix ->
 
 				// these configurations were magically created when we added the source sets above
 				Configuration config = configurations.getByName("${flavour}${suffix.capitalize()}")
@@ -88,7 +89,7 @@ class JavaFlavoursExtension {
 				description = "Assembles a jar archive containing the $flavour classes combined with the main classes."
 				from sourceSet.output
 				from sourceSets.main.output
-				classifier flavour
+				archiveClassifier = flavour
 			}
 
 			artifacts {
